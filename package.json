@@ -1,0 +1,17 @@
+{
+  "name": "workshop-refactoring-2024",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "slidev": "slidev",
+    "slidev:build": "slidev build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slidev/cli": "^0.47.4",
+    "slidev-theme-euricom": "^0.2.8"
+  }
+}
