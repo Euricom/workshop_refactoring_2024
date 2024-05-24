@@ -54,8 +54,100 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 Primitive obsession is a code smell, look at the following code snippet:
 
-```typescript
-let age = 10; // The type here is number but is -10 a valid age
+```cs
+
+public void RegisterUser(string email, string rijksregisterNummer)
+
+```
+
+<v-click> 
+
+Better
+
+```cs
+
+public void RegisterUser(Email email, RijksregisterNummer rijksregisterNummer)
+
+```
+</v-click>
+
+<!-- 
+- What if someone changes the order of the parameters?
+- Are the values already validated or should I do it (again)
+- How are the values formatted?
+ -->
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+---
+
+# Example implementation
+
+```cs
+
+public record struct RijksregisterNummer
+{
+    public string Value { get; }
+
+    public RijksregisterNummer(string value)
+    {
+        // Validate number here
+        // Format number here
+        Value = value;
+    }
+
+    public static RijksregisterNummer Empty { get; } = new("00.00.00-000-00");
+}
+```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
+# Example implementation
+
+```cs
+
+public static RijksregisterNummer Parse(string value)
+{
+    if (IsValid(value))
+        return new RijksregisterNummer(value);
+
+    throw new ArgumentException("Ongeldig rijksregister nummer");
+}
+
+public static bool TryParse(string value, out RijksregisterNummer rijksregisterNummer)
+{
+    var isValid = IsValid(value);
+    rijksregisterNummer = isValid ? new RijksregisterNummer(value) : Empty;
+    return isValid;
+}
+
+```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
+# Example implementation
+
+```cs
+
+public override string ToString()
+{
+    return _value;
+}
+
+public static implicit operator string(RijksregisterNummer rijksregisterNummer)
+{
+    return rijksregisterNummer._value;
+}
+
 ```
 
 ---<!-- prettier-ignore -->
