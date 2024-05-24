@@ -52,7 +52,7 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 # Primitive obsession
 
-Primitive obsession is a code smell, look at the following code snippet:
+Primitive obsession is a code smell, look at the following code snippet
 
 ```cs
 
@@ -82,11 +82,11 @@ layout: cover
 background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 ---
 
-# Example implementation
+# Primitive obsession
 
 ```cs
 
-public record struct RijksregisterNummer
+public readonly record struct RijksregisterNummer
 {
     public string Value { get; }
 
@@ -107,7 +107,7 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
 
-# Example implementation
+# Primitive obsession
 
 ```cs
 
@@ -134,7 +134,7 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
 
-# Example implementation
+# Primitive obsession
 
 ```cs
 
@@ -158,11 +158,95 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 # Enum Pattern
 
+Traditional enums can lead to code smells
+
+```cs
+public enum CountryEnum
+{
+    Belgium,
+    France,
+    Germany
+}
+
+public string GetCountryCodeAplha2Code(CountryEnum country)
+{
+    return country switch
+    {
+        CountryEnum.Belgium => "BE",
+        CountryEnum.France => "FR",
+        CountryEnum.Germany => "DE",
+        _ => throw new ArgumentOutOfRangeException(..)
+    };
+}
+```
+
 ---<!-- prettier-ignore -->
 layout: cover
 background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
+
+# Enum Pattern
+
+```cs
+public readonly record struct Country
+{
+    private static readonly List<Country> _all = new();
+    public static ReadOnlyCollection<Country> All => _all.AsReadOnly();
+
+    public string Alpha2Code { get; }
+    public string Alpha3Code { get; }
+    public IsValidVatNumber IsValidVatNumber { get; }
+
+    private Country(string a2Code, string a3Code, IsValidVatNumber isValidVat)
+    {
+        _all.Add(this);
+        Alpha2Code = a2Code;
+        Alpha3Code = a3Code;
+        IsValidVatNumber = isValidVat;
+    }
+}
+
+public delegate bool IsValidVatNumber(string vatNumber);
+```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
+# Enum Pattern
+
+```cs
+public readonly record struct Country
+{
+    public static Country Belgium { get; } = new("BE", "BEL", v => v.Length == 10);
+    public static Country France { get; } = new("FR", "FRA", v => v.Length == 11);
+    public static Country Germany { get; } = new("DE", "DEU", v => v.Length == 9);
+
+    public static Country WithAlpha2Code(string alpha2Code)
+    {
+        return _all.FirstOrDefault(country => country.Alpha2Code == alpha2Code) 
+               ?? throw new ArgumentOutOfRangeException(..);
+    }
+}
+
+string ProcessCountry(Country country, string vatNumber)
+{
+    var alpha2Code = country.Alpha2Code;
+    var alpha3Code = country.Alpha3Code;
+    var isValidVatNumber = country.IsValidVatNumber(vatNumber);
+}
+
+```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
 
 # Refactoring Rules
 
