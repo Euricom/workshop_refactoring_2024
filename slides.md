@@ -232,7 +232,7 @@ public readonly record struct Country
     }
 }
 
-string ProcessCountry(Country country, string vatNumber)
+public void ProcessCountry(Country country, string vatNumber)
 {
     var alpha2Code = country.Alpha2Code;
     var alpha3Code = country.Alpha3Code;
