@@ -50,6 +50,41 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
 
+# Magic numbers
+
+Avoid magic numbers as it might be clear where the value comes from when you write the code but it can be difficult when you read the code some time later
+
+```cs
+public record Circle(double Radius)
+{
+    public double GetCircumference()
+    {
+        // 2 x π x radius
+        return 2 * 3.14159 * Radius;
+    }
+}
+```
+
+---
+
+# Magic numbers
+
+Better
+
+```cs
+public record Circle(double Radius)
+{
+    private const double Pi = 3.14159;
+    
+    public double GetCircumference()
+    {
+        return 2 * Pi * Radius;
+    }
+}
+```
+
+---
+
 # Primitive obsession
 
 Primitive obsession is a code smell, look at the following code snippet
