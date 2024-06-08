@@ -13,6 +13,24 @@ background: /zen-stones-sand-background-health-wellness-concept.jpg
 > Euricom - 2024
 
 ---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
+# Agenda
+
+<v-clicks>
+
+- introductie
+- kennismakingsronde
+- een aantal patterns & tricks
+- 2 refactoring kata's
+- pizza 🍕
+
+</v-clicks>
+
+---<!-- prettier-ignore -->
 layout: quote
 author: Martin Fowler
 background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
@@ -46,6 +64,14 @@ Any fool can write code that a computer can understand. Good programmers write c
 
 ---<!-- prettier-ignore -->
 layout: cover
+background: /magic_numbers.jpeg
+
+---
+
+# Magic numbers
+
+---<!-- prettier-ignore -->
+layout: cover
 background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
@@ -65,6 +91,10 @@ public record Circle(double Radius)
 }
 ```
 
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
 ---
 
 # Magic numbers
@@ -75,13 +105,25 @@ Better
 public record Circle(double Radius)
 {
     private const double Pi = 3.14159;
-    
+
     public double GetCircumference()
     {
         return 2 * Pi * Radius;
     }
 }
 ```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /primitive_obsession.jpg
+
+---
+
+# Primitive obsession
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
 
@@ -95,7 +137,7 @@ public void RegisterUser(string email, string rijksregisterNummer)
 
 ```
 
-<v-click> 
+<v-click>
 
 Better
 
@@ -104,9 +146,10 @@ Better
 public void RegisterUser(Email email, RijksregisterNummer rijksregisterNummer)
 
 ```
+
 </v-click>
 
-<!-- 
+<!--
 - What if someone changes the order of the parameters?
 - Are the values already validated or should I do it (again)
 - How are the values formatted?
@@ -115,6 +158,7 @@ public void RegisterUser(Email email, RijksregisterNummer rijksregisterNummer)
 ---<!-- prettier-ignore -->
 layout: cover
 background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
 ---
 
 # Primitive obsession
@@ -184,6 +228,44 @@ public static implicit operator string(RijksregisterNummer rijksregisterNummer)
 }
 
 ```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
+# Primitive obsession
+
+Yeah but what about typescript?
+
+```ts
+const tag = Symbol("tag");
+
+type Email = string & { [tag]: "email" };
+
+function isValidEmail(value: string): boolean {
+  return value.includes("@");
+}
+
+function parseEmail(value: string): Email {
+  if (!isValidEmail(value)) throw new Error("Invalid email");
+
+  return value as Email;
+}
+
+const valid = parseEmail("tshero@gmail.com");
+//    ^? const valid: Email
+const invalid = parseEmail("");
+```
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /enumerate.jpg
+
+---
+
+# Enum Pattern
 
 ---<!-- prettier-ignore -->
 layout: cover
@@ -262,7 +344,7 @@ public readonly record struct Country
 
     public static Country WithAlpha2Code(string alpha2Code)
     {
-        return _all.FirstOrDefault(country => country.Alpha2Code == alpha2Code) 
+        return _all.FirstOrDefault(country => country.Alpha2Code == alpha2Code)
                ?? throw new ArgumentOutOfRangeException(..);
     }
 }
@@ -282,11 +364,11 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 
 ---
 
-
 # Refactoring Rules
 
 <v-clicks>
 
+- disable Copilot!
 - work in small teams (max 3)
 - treat fellow team members with kindness and respect.
 - follow the driver-navigator approach.
@@ -331,5 +413,20 @@ https://github.com/emilybache/Tennis-Refactoring-Kata
 - je bent een software consultant
 - een collega van je is ziek geworden, er rest nog 1,5u van de 10 voorziene uren
 - je opdracht is om de code wat te verbeteren en op te kuisen
+
+</v-clicks>
+
+---<!-- prettier-ignore -->
+layout: cover
+background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
+
+---
+
+# Want more?
+
+<v-clicks>
+
+- [Emily Bache Github - https://github.com/emilybache](https://github.com/emilybache)
+- [Kata Log - https://kata-log.rocks/](https://kata-log.rocks/)
 
 </v-clicks>
