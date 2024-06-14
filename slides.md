@@ -369,7 +369,7 @@ background: /lukas-blazek-EWDvHNNfUmQ-unsplash.jpg
 <v-clicks>
 
 - disable Copilot!
-- work in small teams (max 3)
+- work in teams (3-4)
 - treat fellow team members with kindness and respect.
 - follow the driver-navigator approach.
 - failing is ok
@@ -413,6 +413,8 @@ https://github.com/emilybache/Tennis-Refactoring-Kata
 - je bent een software consultant
 - een collega van je is ziek geworden, er rest nog 1,5u van de 10 voorziene uren
 - je opdracht is om de code wat te verbeteren en op te kuisen
+
+https://www.youtube.com/watch?v=XifUs1FhWRc&t=138s
 
 </v-clicks>
 
